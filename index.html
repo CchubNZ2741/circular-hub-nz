@@ -200,55 +200,59 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // --- Helper function to handle form submission logic ---
+            const handleFormSubmit = async (form, messageDiv, event) => {
+                event.preventDefault(); // Prevent default form submission
+
+                const formData = new FormData(form);
+                messageDiv.classList.remove('hidden');
+                messageDiv.className = 'mt-4 text-center text-blue-600';
+                messageDiv.textContent = 'Submitting your request...';
+
+                try {
+                    const response = await fetch("/", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                        body: new URLSearchParams(formData).toString(),
+                    });
+
+                    if (response.ok) {
+                        messageDiv.className = 'mt-4 text-center text-green-600';
+                        messageDiv.textContent = 'Your submission was successful! Thank you.';
+                        form.reset();
+                    } else {
+                        throw new Error('Network response was not ok.');
+                    }
+                } catch (error) {
+                    messageDiv.className = 'mt-4 text-center text-red-600';
+                    messageDiv.textContent = 'Sorry, there was an error submitting your form. Please try again.';
+                    console.error("Form submission error:", error);
+                }
+            };
+
             // --- E-Waste Request Form Logic ---
             const eWasteRequestForm = document.getElementById('eWasteRequestForm');
             const formMessage = document.getElementById('formMessage');
-
-            // Only attach listener if the element exists
-            if (eWasteRequestForm && formMessage) { // Added check for formMessage as well
-                eWasteRequestForm.addEventListener('submit', async (event) => {
-                    event.preventDefault(); // Prevent default form submission
-
-                    const formData = new FormData(eWasteRequestForm);
-                    const data = Object.fromEntries(formData.entries());
-
-                    // Construct email body for sending to yourself (for Netlify Forms)
-                    // Note: Netlify automatically captures form data and sends email notifications.
-                    // This 'emailBody' variable is mainly for console logging in the MVP.
-                    const emailBody = `
-                        New E-Waste Request:
-                        --------------------
-                        Business Name: ${data.businessName}
-                        Contact Person: ${data.contactPerson}
-                        Contact Email: ${data.contactEmail}
-                        Phone Number: ${data.phone || 'N/A'}
-                        Pickup Location: ${data.location}
-                        Type of E-Waste: ${data.eWasteType}
-                        Approximate Volume: ${data.volume}
-                        Service Needed: ${data.serviceNeeded}
-                        Comments: ${data.comments || 'No additional comments.'}
-                    `;
-
-                    formMessage.classList.remove('hidden');
-                    formMessage.className = 'mt-4 text-center text-blue-600';
-                    formMessage.textContent = 'Submitting your request...';
-
-                    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-
-                    formMessage.className = 'mt-4 text-center text-green-600';
-                    formMessage.textContent = 'Your request has been submitted successfully! We will connect you with providers shortly.';
-                    eWasteRequestForm.reset(); // Clear the form
-                    console.log("Simulated E-Waste Request Submitted (Netlify will capture this):", emailBody);
+            if (eWasteRequestForm && formMessage) {
+                eWasteRequestForm.addEventListener('submit', (event) => {
+                    handleFormSubmit(eWasteRequestForm, formMessage, event);
                 });
-            } else {
-                console.error("E-Waste Request Form or Message element not found. Skipping event listener setup.");
+            }
+
+            // --- List Your Initiative Form Logic ---
+            const listInitiativeForm = document.getElementById('listInitiativeForm');
+            const initiativeFormMessage = document.getElementById('initiativeFormMessage');
+            if (listInitiativeForm && initiativeFormMessage) {
+                listInitiativeForm.addEventListener('submit', (event) => {
+                    handleFormSubmit(listInitiativeForm, initiativeFormMessage, event);
+                });
             }
 
 
-            // --- Circular Economy Initiative & Service Provider Listing Logic ---
+            // --- Circular Economy Initiative & Service Provider Listing Logic (This part remains the same) ---
             const circularEntities = [
-                // Existing E-waste Service Providers
-                {
+                // ... (your list of entities)
+                 {
                     name: "Echo Technology Lifecycle Solutions",
                     type: "E-waste Service Provider",
                     location: "Auckland, Wellington (NZ-wide service)",
@@ -296,13 +300,12 @@
                     contact: "info@crownrms.com",
                     website: "https://www.crownrms.com/nz/"
                 },
-                // New Circular Economy Initiatives (from your research)
                 {
                     name: "XLabs",
                     type: "Government/Council Initiative",
                     location: "Auckland",
                     description: "Auckland Transport initiative prototyping circular infrastructure solutions and stakeholder collaboration.",
-                    contact: "info@xlabs.nz", // Placeholder - verify actual contact
+                    contact: "info@xlabs.nz", 
                     website: "https://at.govt.nz/xlabs"
                 },
                 {
@@ -310,7 +313,7 @@
                     type: "Community Hub (Zero Waste Hub)",
                     location: "Raglan",
                     description: "Community-led initiative demonstrating circular practices at a local level, focusing on waste diversion.",
-                    contact: "info@xtremezerowaste.org.nz", // Placeholder - verify actual contact
+                    contact: "info@xtremezerowaste.org.nz",
                     website: "https://www.xtremezerowaste.org.nz/"
                 },
                 {
@@ -318,7 +321,7 @@
                     type: "Community Hub (Zero Waste Hub)",
                     location: "Wanaka",
                     description: "Community-led zero waste and recycling hub, actively promoting reuse and circular practices.",
-                    contact: "info@wastebusters.co.nz", // Placeholder - verify actual contact
+                    contact: "info@wastebusters.co.nz", 
                     website: "https://www.wastebusters.co.nz/"
                 },
                 {
@@ -326,7 +329,7 @@
                     type: "Research Centre",
                     location: "University of Auckland",
                     description: "Undertakes research and develops solutions for the circular economy across various disciplines.",
-                    contact: "circuit@auckland.ac.nz", // Placeholder - verify actual contact
+                    contact: "circuit@auckland.ac.nz",
                     website: "https://www.auckland.ac.nz/en/engineering/research/research-centres-institutes/circuit.html"
                 },
                 {
@@ -334,25 +337,24 @@
                     type: "Community Initiative",
                     location: "Mangere",
                     description: "Focused on creating a circular economy by connecting community and building local connections.",
-                    contact: "info@eturakau.org.nz", // Placeholder - verify actual contact
-                    website: "" // No obvious website found, keeping blank
+                    contact: "info@eturakau.org.nz",
+                    website: "" 
                 },
                 {
                     name: "CircularConnect (PlasticsNZ)",
                     type: "Industry Initiative",
                     location: "NZ-wide",
                     description: "Supports businesses in adopting circular economy practices, particularly related to plastics.",
-                    contact: "info@plastics.org.nz", // Placeholder - verify actual contact
+                    contact: "info@plastics.org.nz",
                     website: "https://plastics.org.nz/circular-economy/circularconnect"
                 }
             ];
 
-
             const entityListDiv = document.getElementById('entityList');
             const entitySearchInput = document.getElementById('entitySearch');
 
-            // Only proceed if required elements exist
             if (entityListDiv && entitySearchInput) {
+                // Function to display entities (remains the same)
                 function displayEntities(entitiesToDisplay) {
                     entityListDiv.innerHTML = ''; // Clear previous listings
                     if (entitiesToDisplay.length === 0) {
@@ -381,11 +383,8 @@
                         entityListDiv.innerHTML += entityCard;
                     });
                 }
-
-                // Initial display
+                // Initial display and search functionality (remains the same)
                 displayEntities(circularEntities);
-
-                // Search functionality
                 entitySearchInput.addEventListener('keyup', (event) => {
                     const searchTerm = event.target.value.toLowerCase();
                     const filteredEntities = circularEntities.filter(entity =>
@@ -396,49 +395,6 @@
                     );
                     displayEntities(filteredEntities);
                 });
-            } else {
-                console.error("Explore Initiatives section elements (entityListDiv or entitySearchInput) not found. Skipping setup.");
-            }
-
-
-            // --- List Your Initiative Form Logic ---
-            const listInitiativeForm = document.getElementById('listInitiativeForm');
-            const initiativeFormMessage = document.getElementById('initiativeFormMessage');
-
-            if (listInitiativeForm && initiativeFormMessage) { // Added check for initiativeFormMessage as well
-                listInitiativeForm.addEventListener('submit', async (event) => {
-                    event.preventDefault(); // Prevent default form submission
-
-                    const formData = new FormData(listInitiativeForm);
-                    const data = Object.fromEntries(formData.entries());
-
-                    // Construct email body for sending to yourself (for Netlify Forms)
-                    const emailBody = `
-                        New Circular Economy Initiative Listing Request:
-                        ------------------------------------------------
-                        Company/Org/Initiative Name: ${data.initiativeName}
-                        Type: ${data.initiativeType}
-                        Primary Location: ${data.initiativeLocation}
-                        Description: ${data.initiativeDescription}
-                        Contact Email: ${data.initiativeContactEmail}
-                        Website: ${data.initiativeWebsite || 'N/A'}
-                    `;
-
-                    initiativeFormMessage.classList.remove('hidden');
-                    initiativeFormMessage.className = 'mt-4 text-center text-blue-600';
-                    initiativeFormMessage.textContent = 'Submitting your initiative listing request...';
-
-                    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
-
-                    initiativeFormMessage.className = 'mt-4 text-center text-green-600';
-                    initiativeFormMessage.textContent = 'Your initiative listing request has been submitted! We will review it shortly.';
-                    listInitiativeForm.reset(); // Clear the form
-                    console.log("Simulated Initiative Listing Request (Netlify will capture this):", emailBody);
-                });
-            } else {
-                console.error("List Your Initiative Form or Message element not found. Skipping event listener setup.");
             }
         });
     </script>
-</body>
-</html>
