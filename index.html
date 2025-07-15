@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circular Hub NZ - Connecting New Zealand's Circular Economy</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f2f5; /* Light grey background */
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #94a3b8;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center py-10 px-4">
+
+    <header class="w-full max-w-4xl bg-white shadow-lg rounded-xl p-6 mb-8">
+        <div class="flex flex-col md:flex-row items-center justify-between">
+            <h1 class="text-4xl font-bold text-gray-800 mb-4 md:mb-0">
+                Circular Hub <span class="text-teal-600">NZ</span>
+            </h1>
+            <nav class="flex space-x-6 text-lg">
+                <a href="#request-waste" class="text-gray-600 hover:text-teal-700 transition-colors">Request E-Waste Service</a>
+                <a href="#explore-initiatives" class="text-gray-600 hover:text-teal-700 transition-colors">Explore Initiatives</a>
+                <a href="#list-initiative" class="text-gray-600 hover:text-teal-700 transition-colors">List Your Initiative</a>
+            </nav>
+        </div>
+        <p class="mt-4 text-gray-600 text-center md:text-left">Connecting New Zealand's circular economy players for a regenerative future.</p>
+    </header>
+
+    <main class="w-full max-w-4xl">
+
+        <section id="welcome" class="bg-gradient-to-r from-teal-500 to-emerald-600 text-white p-8 rounded-xl shadow-lg mb-8 text-center">
+            <h2 class="text-3xl font-semibold mb-3">Welcome to Circular Hub NZ!</h2>
+            <p class="text-lg">Your central point for connecting, collaborating, and driving New Zealand's transition to a thriving circular economy. Starting with e-waste, we aim to map and accelerate all resource regeneration efforts.</p>
+        </section>
+
+        <section id="request-waste" class="bg-white p-8 rounded-xl shadow-lg mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-teal-500 pb-2">Request E-Waste Pickup/Service</h2>
+            <p class="mb-6 text-gray-600">Tell us about your e-waste, and we'll connect you with certified service providers. Please note, for this MVP, requests will be sent via email.</p>
+
+            <form id="eWasteRequestForm" class="space-y-5" data-netlify="true" name="eWasteRequest">
+                <div>
+                    <label for="businessName" class="block text-gray-700 text-sm font-medium mb-2">Your Business Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="businessName" name="businessName" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                </div>
+                <div>
+                    <label for="contactPerson" class="block text-gray-700 text-sm font-medium mb-2">Contact Person <span class="text-red-500">*</span></label>
+                    <input type="text" id="contactPerson" name="contactPerson" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                </div>
+                <div>
+                    <label for="contactEmail" class="block text-gray-700 text-sm font-medium mb-2">Contact Email <span class="text-red-500">*</span></label>
+                    <input type="email" id="contactEmail" name="contactEmail" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                </div>
+                <div>
+                    <label for="phone" class="block text-gray-700 text-sm font-medium mb-2">Phone Number</label>
+                    <input type="tel" id="phone" name="phone"
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                </div>
+                <div>
+                    <label for="location" class="block text-gray-700 text-sm font-medium mb-2">Pickup Location (City, NZ) <span class="text-red-500">*</span></label>
+                    <input type="text" id="location" name="location" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                </div>
+                <div>
+                    <label for="eWasteType" class="block text-gray-700 text-sm font-medium mb-2">Type of E-Waste <span class="text-red-500">*</span></label>
+                    <select id="eWasteType" name="eWasteType" required
+                            class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                        <option value="">Select Category</option>
+                        <option value="Laptops/Desktops">Laptops/Desktops</option>
+                        <option value="Monitors/Screens">Monitors/Screens</option>
+                        <option value="Servers/Networking Gear">Servers/Networking Gear</option>
+                        <option value="Mobile Phones/Tablets">Mobile Phones/Tablets</option>
+                        <option value="Printers/Peripherals">Printers/Peripherals</option>
+                        <option value="Other IT Equipment">Other IT Equipment</option>
+                        <option value="Mixed IT E-Waste">Mixed IT E-Waste</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="volume" class="block text-gray-700 text-sm font-medium mb-2">Approximate Volume/Quantity <span class="text-red-500">*</span></label>
+                    <input type="text" id="volume" name="volume" placeholder="e.g., 20 laptops, 5 server racks, 1 pallet" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                </div>
+                <div>
+                    <label for="serviceNeeded" class="block text-gray-700 text-sm font-medium mb-2">Service Needed <span class="text-red-500">*</span></label>
+                    <select id="serviceNeeded" name="serviceNeeded" required
+                            class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                        <option value="">Select Service</option>
+                        <option value="Secure Data Destruction">Secure Data Destruction</option>
+                        <option value="Refurbishment/Resale">Refurbishment/Resale Potential</option>
+                        <option value="General Recycling/Disposal">General Recycling/Disposal</option>
+                        <option value="Consultation">Consultation/Audit</option>
+                        <option value="Other">Other (please specify in comments)</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="comments" class="block text-gray-700 text-sm font-medium mb-2">Additional Comments/Details</label>
+                    <textarea id="comments" name="comments" rows="4"
+                              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors"></textarea>
+                </div>
+
+                <button type="submit"
+                        class="w-full bg-teal-600 text-white p-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors shadow-md">
+                    Submit E-Waste Request
+                </button>
+            </form>
+            <div id="formMessage" class="mt-4 text-center hidden"></div>
+        </section>
+
+        <section id="explore-initiatives" class="bg-white p-8 rounded-xl shadow-lg mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-teal-500 pb-2">Explore Circular Economy Initiatives & Service Providers</h2>
+            <p class="mb-6 text-gray-600">Discover a diverse range of organizations and initiatives driving circularity in New Zealand, from e-waste recyclers to research centers and community hubs. Use the search below to filter by name, type, or location.</p>
+
+            <div class="mb-6">
+                <input type="text" id="entitySearch" placeholder="Search by name, type, or location..."
+                       class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+            </div>
+
+            <div id="entityList" class="space-y-6">
+                </div>
+        </section>
+
+        <section id="list-initiative" class="bg-white p-8 rounded-xl shadow-lg mb-8">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 border-b-2 border-teal-500 pb-2">List Your Circular Economy Initiative or Service</h2>
+            <p class="mb-6 text-gray-600">Are you part of the NZ circular economy ecosystem? List your organization or initiative here to connect with others and boost visibility for your efforts!</p>
+
+            <form id="listInitiativeForm" class="space-y-5" data-netlify="true" name="initiativeListing">
+                <div>
+                    <label for="initiativeName" class="block text-gray-700 text-sm font-medium mb-2">Company/Organization/Initiative Name <span class="text-red-500">*</span></label>
+                    <input type="text" id="initiativeName" name="initiativeName" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                </div>
+                <div>
+                    <label for="initiativeType" class="block text-gray-700 text-sm font-medium mb-2">Type of Entity/Initiative <span class="text-red-500">*</span></label>
+                    <select id="initiativeType" name="initiativeType" required
+                            class="w-full p-3 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                        <option value="">Select Type</option>
+                        <option value="E-waste Service Provider">E-waste Service Provider</option>
+                        <option value="Research Centre">Research Centre</option>
+                        <option value="Community Hub">Community Hub (Zero Waste Hub)</option>
+                        <option value="Industry Initiative">Industry Initiative (e.g., CircularConnect)</option>
+                        <option value="Government/Council Initiative">Government/Council Initiative (e.g., XLabs)</option>
+                        <option value="Consultancy/Advisory">Consultancy/Advisory</option>
+                        <option value="Other Circular Business">Other Circular Business</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="initiativeLocation" class="block text-gray-700 text-sm font-medium mb-2">Primary Location (City, Region, or NZ-Wide) <span class="text-red-500">*</span></label>
+                    <input type="text" id="initiativeLocation" name="initiativeLocation" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                </div>
+                <div>
+                    <label for="initiativeDescription" class="block text-gray-700 text-sm font-medium mb-2">Brief Description of Services/Focus <span class="text-red-500">*</span></label>
+                    <textarea id="initiativeDescription" name="initiativeDescription" rows="3" required
+                              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors"></textarea>
+                </div>
+                <div>
+                    <label for="initiativeContactEmail" class="block text-gray-700 text-sm font-medium mb-2">Contact Email <span class="text-red-500">*</span></label>
+                    <input type="email" id="initiativeContactEmail" name="initiativeContactEmail" required
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                </div>
+                <div>
+                    <label for="initiativeWebsite" class="block text-gray-700 text-sm font-medium mb-2">Website (Optional)</label>
+                    <input type="url" id="initiativeWebsite" name="initiativeWebsite"
+                           class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors">
+                </div>
+
+                <button type="submit"
+                        class="w-full bg-teal-600 text-white p-3 rounded-lg font-semibold hover:bg-teal-700 transition-colors shadow-md">
+                    Add My Initiative to Directory
+                </button>
+            </form>
+            <div id="initiativeFormMessage" class="mt-4 text-center hidden"></div>
+        </section>
+
+    </main>
+
+    <footer class="w-full max-w-4xl mt-8 p-6 text-center text-gray-600">
+        <p>&copy; 2025 CL Regen Global, trading as Circular Hub NZ. All rights reserved. Building a sustainable future, one circuit at a time.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- E-Waste Request Form Logic ---
+            const eWasteRequestForm = document.getElementById('eWasteRequestForm');
+            const formMessage = document.getElementById('formMessage');
+
+            // Only attach listener if the element exists
+            if (eWasteRequestForm && formMessage) { // Added check for formMessage as well
+                eWasteRequestForm.addEventListener('submit', async (event) => {
+                    event.preventDefault(); // Prevent default form submission
+
+                    const formData = new FormData(eWasteRequestForm);
+                    const data = Object.fromEntries(formData.entries());
+
+                    // Construct email body for sending to yourself (for Netlify Forms)
+                    // Note: Netlify automatically captures form data and sends email notifications.
+                    // This 'emailBody' variable is mainly for console logging in the MVP.
+                    const emailBody = `
+                        New E-Waste Request:
+                        --------------------
+                        Business Name: ${data.businessName}
+                        Contact Person: ${data.contactPerson}
+                        Contact Email: ${data.contactEmail}
+                        Phone Number: ${data.phone || 'N/A'}
+                        Pickup Location: ${data.location}
+                        Type of E-Waste: ${data.eWasteType}
+                        Approximate Volume: ${data.volume}
+                        Service Needed: ${data.serviceNeeded}
+                        Comments: ${data.comments || 'No additional comments.'}
+                    `;
+
+                    formMessage.classList.remove('hidden');
+                    formMessage.className = 'mt-4 text-center text-blue-600';
+                    formMessage.textContent = 'Submitting your request...';
+
+                    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+
+                    formMessage.className = 'mt-4 text-center text-green-600';
+                    formMessage.textContent = 'Your request has been submitted successfully! We will connect you with providers shortly.';
+                    eWasteRequestForm.reset(); // Clear the form
+                    console.log("Simulated E-Waste Request Submitted (Netlify will capture this):", emailBody);
+                });
+            } else {
+                console.error("E-Waste Request Form or Message element not found. Skipping event listener setup.");
+            }
+
+
+            // --- Circular Economy Initiative & Service Provider Listing Logic ---
+            const circularEntities = [
+                // Existing E-waste Service Providers
+                {
+                    name: "Echo Technology Lifecycle Solutions",
+                    type: "E-waste Service Provider",
+                    location: "Auckland, Wellington (NZ-wide service)",
+                    description: "Largest e-waste recycler, offers recycling, refurbishment, data destruction, and IT asset remarketing.",
+                    contact: "info@echotech.co.nz",
+                    website: "https://www.echotech.co.nz/"
+                },
+                {
+                    name: "Greenbox (formerly Remark-IT Solutions)",
+                    type: "E-waste Service Provider",
+                    location: "Wellington (NZ-wide service)",
+                    description: "Specializes in ITAM & ITAD, secure data sanitisation, remarketing, and environmental recycling.",
+                    contact: "sales@greenbox.co.nz",
+                    website: "https://www.greenbox.co.nz/"
+                },
+                {
+                    name: "BMS-IT",
+                    type: "E-waste Service Provider",
+                    location: "Auckland (NZ-wide service)",
+                    description: "Focuses on IT asset remarketing, data erasure, and responsible recycling, supporting digital inclusion.",
+                    contact: "info@bms-it.co.nz",
+                    website: "https://www.bms-it.co.nz/"
+                },
+                {
+                    name: "e-Cycle",
+                    type: "E-waste Service Provider",
+                    location: "Auckland (NZ-wide service)",
+                    description: "Provides secure IT asset disposal, data wiping, refurbishment, and eco-friendly dismantling with buyback programs.",
+                    contact: "info@e-cycle.co.nz",
+                    website: "https://www.e-cycle.co.nz/asset-recovery/"
+                },
+                {
+                    name: "Techloop",
+                    type: "E-waste Service Provider",
+                    location: "Auckland",
+                    description: "Offers e-waste collection, tech refurbishment, computer repair, and sales of refurbished tech.",
+                    contact: "contact@techloop.co.nz",
+                    website: "https://techloop.co.nz/"
+                },
+                {
+                    name: "Crown Information Management",
+                    type: "E-waste Service Provider",
+                    location: "NZ-wide",
+                    description: "Secure IT Disposal and data destruction (shredding, crushing, degaussing) services with compliance reporting.",
+                    contact: "info@crownrms.com",
+                    website: "https://www.crownrms.com/nz/"
+                },
+                // New Circular Economy Initiatives (from your research)
+                {
+                    name: "XLabs",
+                    type: "Government/Council Initiative",
+                    location: "Auckland",
+                    description: "Auckland Transport initiative prototyping circular infrastructure solutions and stakeholder collaboration.",
+                    contact: "info@xlabs.nz", // Placeholder - verify actual contact
+                    website: "https://at.govt.nz/xlabs"
+                },
+                {
+                    name: "Xtreme Zero Waste",
+                    type: "Community Hub (Zero Waste Hub)",
+                    location: "Raglan",
+                    description: "Community-led initiative demonstrating circular practices at a local level, focusing on waste diversion.",
+                    contact: "info@xtremezerowaste.org.nz", // Placeholder - verify actual contact
+                    website: "https://www.xtremezerowaste.org.nz/"
+                },
+                {
+                    name: "Wastebusters",
+                    type: "Community Hub (Zero Waste Hub)",
+                    location: "Wanaka",
+                    description: "Community-led zero waste and recycling hub, actively promoting reuse and circular practices.",
+                    contact: "info@wastebusters.co.nz", // Placeholder - verify actual contact
+                    website: "https://www.wastebusters.co.nz/"
+                },
+                {
+                    name: "CIRCUIT (Circular Innovations Research Centre)",
+                    type: "Research Centre",
+                    location: "University of Auckland",
+                    description: "Undertakes research and develops solutions for the circular economy across various disciplines.",
+                    contact: "circuit@auckland.ac.nz", // Placeholder - verify actual contact
+                    website: "https://www.auckland.ac.nz/en/engineering/research/research-centres-institutes/circuit.html"
+                },
+                {
+                    name: "Etu Rakau",
+                    type: "Community Initiative",
+                    location: "Mangere",
+                    description: "Focused on creating a circular economy by connecting community and building local connections.",
+                    contact: "info@eturakau.org.nz", // Placeholder - verify actual contact
+                    website: "" // No obvious website found, keeping blank
+                },
+                {
+                    name: "CircularConnect (PlasticsNZ)",
+                    type: "Industry Initiative",
+                    location: "NZ-wide",
+                    description: "Supports businesses in adopting circular economy practices, particularly related to plastics.",
+                    contact: "info@plastics.org.nz", // Placeholder - verify actual contact
+                    website: "https://plastics.org.nz/circular-economy/circularconnect"
+                }
+            ];
+
+
+            const entityListDiv = document.getElementById('entityList');
+            const entitySearchInput = document.getElementById('entitySearch');
+
+            // Only proceed if required elements exist
+            if (entityListDiv && entitySearchInput) {
+                function displayEntities(entitiesToDisplay) {
+                    entityListDiv.innerHTML = ''; // Clear previous listings
+                    if (entitiesToDisplay.length === 0) {
+                        entityListDiv.innerHTML = '<p class="text-gray-600 text-center">No initiatives or service providers found matching your search.</p>';
+                        return;
+                    }
+                    entitiesToDisplay.forEach(entity => {
+                        const entityCard = `
+                            <div class="bg-gray-50 p-6 rounded-lg shadow-sm border border-gray-200">
+                                <h3 class="text-xl font-semibold text-teal-700">${entity.name}</h3>
+                                <p class="text-gray-600 mt-2"><strong>Type:</strong> ${entity.type}</p>
+                                <p class="text-gray-600 mt-1"><strong>Location:</strong> ${entity.location}</p>
+                                <p class="text-gray-600 mt-1"><strong>Description:</strong> ${entity.description}</p>
+                                <div class="mt-4 flex flex-wrap gap-2">
+                                    <a href="mailto:${entity.contact}" class="inline-flex items-center px-4 py-2 bg-blue-500 text-white text-sm font-medium rounded-full hover:bg-blue-600 transition-colors">
+                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"></path><path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path></svg>
+                                        Email
+                                    </a>
+                                    ${entity.website ? `<a href="${entity.website}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 bg-gray-700 text-white text-sm font-medium rounded-full hover:bg-gray-800 transition-colors">
+                                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z"></path><path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z"></path></svg>
+                                        Website
+                                    </a>` : ''}
+                                </div>
+                            </div>
+                        `;
+                        entityListDiv.innerHTML += entityCard;
+                    });
+                }
+
+                // Initial display
+                displayEntities(circularEntities);
+
+                // Search functionality
+                entitySearchInput.addEventListener('keyup', (event) => {
+                    const searchTerm = event.target.value.toLowerCase();
+                    const filteredEntities = circularEntities.filter(entity =>
+                        entity.name.toLowerCase().includes(searchTerm) ||
+                        entity.type.toLowerCase().includes(searchTerm) ||
+                        entity.location.toLowerCase().includes(searchTerm) ||
+                        entity.description.toLowerCase().includes(searchTerm)
+                    );
+                    displayEntities(filteredEntities);
+                });
+            } else {
+                console.error("Explore Initiatives section elements (entityListDiv or entitySearchInput) not found. Skipping setup.");
+            }
+
+
+            // --- List Your Initiative Form Logic ---
+            const listInitiativeForm = document.getElementById('listInitiativeForm');
+            const initiativeFormMessage = document.getElementById('initiativeFormMessage');
+
+            if (listInitiativeForm && initiativeFormMessage) { // Added check for initiativeFormMessage as well
+                listInitiativeForm.addEventListener('submit', async (event) => {
+                    event.preventDefault(); // Prevent default form submission
+
+                    const formData = new FormData(listInitiativeForm);
+                    const data = Object.fromEntries(formData.entries());
+
+                    // Construct email body for sending to yourself (for Netlify Forms)
+                    const emailBody = `
+                        New Circular Economy Initiative Listing Request:
+                        ------------------------------------------------
+                        Company/Org/Initiative Name: ${data.initiativeName}
+                        Type: ${data.initiativeType}
+                        Primary Location: ${data.initiativeLocation}
+                        Description: ${data.initiativeDescription}
+                        Contact Email: ${data.initiativeContactEmail}
+                        Website: ${data.initiativeWebsite || 'N/A'}
+                    `;
+
+                    initiativeFormMessage.classList.remove('hidden');
+                    initiativeFormMessage.className = 'mt-4 text-center text-blue-600';
+                    initiativeFormMessage.textContent = 'Submitting your initiative listing request...';
+
+                    await new Promise(resolve => setTimeout(resolve, 1500)); // Simulate network delay
+
+                    initiativeFormMessage.className = 'mt-4 text-center text-green-600';
+                    initiativeFormMessage.textContent = 'Your initiative listing request has been submitted! We will review it shortly.';
+                    listInitiativeForm.reset(); // Clear the form
+                    console.log("Simulated Initiative Listing Request (Netlify will capture this):", emailBody);
+                });
+            } else {
+                console.error("List Your Initiative Form or Message element not found. Skipping event listener setup.");
+            }
+        });
+    </script>
+</body>
+</html>
